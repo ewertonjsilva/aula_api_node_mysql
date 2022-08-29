@@ -17,20 +17,18 @@ module.exports = {
     }, 
     async create(request, response) {
         try {
-            const { ins_nome, ins_status, ins_tipo, ins_n_aln, ins_prof, ins_dt_cad, ins_dt_controle, ins_classificacao, cid_id, ins_cnpj, ins_limite_aln } = request.body; 
+            const { mes_nome, mes_status, mes_lugares, ped_id } = request.body; 
             
-            //const conn = db.connect(); 
-            const sql = 'INSERT INTO INSTITUICOES (ins_nome, ins_status, ins_tipo, ins_cod_cad_prof, ins_n_aln, ins_prof, ins_dt_cad, ins_dt_controle, ins_classificacao, cid_id, ins_cnpj, ins_limite_aln) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-            const values = [ins_nome, ins_status, ins_tipo, ins_cod_cad_prof, ins_n_aln, ins_prof, ins_dt_cad, ins_dt_controle, ins_classificacao, cid_id, ins_cnpj, ins_limite_aln];        
-            const resultado = await db.query(sql, values);
+            const sql = 'INSERT INTO mesas (mes_nome, mes_status, mes_lugares, ped_id) VALUES (?, ?, ?, ?)';
+            const values = [mes_nome, mes_status, mes_lugares, ped_id];        
+            const confirmacao = await db.query(sql, values);
             // Exibe o id do registro inserido
-            const idInst = resultado[0].insertId; 
+            const mes_id = confirmacao[0].insertId; 
             // Exibe o código de cadastro de professores
-            return response.status(200).json(ins_cod_cad_prof);
+            return response.status(200).json({confirma: 'Sucesso', message: mes_id});
         } catch (error) { 
-            return response.status(500).json(error);
-        }
-        
+            return response.status(500).json({confirma: 'Erro', message: error});
+        }   
     },
 };
 

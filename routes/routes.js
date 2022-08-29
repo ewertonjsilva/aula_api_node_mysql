@@ -34,7 +34,7 @@ router.get('/enderecoclientes', EnderecoClientesController.listarEnderecoCliente
 
 
 router.get('/mesas', MesasController.listarMesas); 
-// cadastrar
+router.post('/mesas', MesasController.create);
 // editar
 // excluir
 
