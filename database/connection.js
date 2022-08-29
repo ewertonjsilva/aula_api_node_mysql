@@ -1,10 +1,10 @@
 const mysql = require('mysql2/promise'); 
 
-const bd_usuario = 'ewerton_node';
-const bd_senha = '123456'; 
-const bd_servidor = '10.67.22.216'; 
-const bd_porta = '3306'; 
-const bd_banco = 'ewerton_node'; 
+const bd_usuario = 'ewerton_node'; // usuário
+const bd_senha = '123456'; // senha
+const bd_servidor = '10.67.22.216'; // servidor
+const bd_porta = '3306'; // porta
+const bd_banco = 'ewerton_node'; // nome do banco
 let connection;
     
 const config = {
@@ -16,12 +16,14 @@ const config = {
     waitForConnections : true, 
     connectionLimit : 10, //Default: 10 - deixar 100 ou 1000
     queueLimit : 0, 
+}
+
     /* 
+        -queueLimit-
         O número máximo de solicitações de conexão que o pool enfileirará 
         antes de retornar um erro do getConnection. Se definido como 0, não 
         há limite para o número de solicitações de conexão enfileiradas. (Padrão: 0)
     */
-}
 
 try {
     connection = mysql.createPool(config);
