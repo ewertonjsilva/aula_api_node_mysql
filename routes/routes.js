@@ -34,8 +34,8 @@ router.get('/enderecoclientes', EnderecoClientesController.listarEnderecoCliente
 
 
 router.get('/mesas', MesasController.listarMesas); 
-router.post('/mesas', MesasController.create);
-// editar
+router.post('/mesas', MesasController.create); // body
+router.patch('/mesas/:mes_id', MesasController.update); // params(link) e body
 // excluir
 
 

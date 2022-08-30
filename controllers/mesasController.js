@@ -17,18 +17,39 @@ module.exports = {
     }, 
     async create(request, response) {
         try {
-            const { mes_nome, mes_status, mes_lugares, ped_id } = request.body; 
-            
-            const sql = 'INSERT INTO mesas (mes_nome, mes_status, mes_lugares, ped_id) VALUES (?, ?, ?, ?)';
-            const values = [mes_nome, mes_status, mes_lugares, ped_id];        
+                // parâmtros passados via corpo da requisição
+            const { mes_nome, mes_status, mes_lugares, ped_id } = request.body;  
+                // instrução sql para inserção
+            const sql = 'INSERT INTO mesas (mes_nome, mes_status, mes_lugares, ped_id) VALUES (?, ?, ?, ?)'; 
+                // definição de array com os parâmetros que receberam os valores do front-end
+            const values = [mes_nome, mes_status, mes_lugares, ped_id]; 
+                // executa a instrução de inserção no banco de dados       
             const confirmacao = await db.query(sql, values);
-            // Exibe o id do registro inserido
+                // Exibe o id do registro inserido
             const mes_id = confirmacao[0].insertId; 
-            // Exibe o código de cadastro de professores
+                // Mensagem de retorno no formato JSON
             return response.status(200).json({confirma: 'Sucesso', message: mes_id});
         } catch (error) { 
             return response.status(500).json({confirma: 'Erro', message: error});
         }   
+    }, 
+    async update(request, response) { 
+        try {
+                // parâmtros passados via corpo da requisição
+            const { mes_nome, mes_status, mes_lugares, ped_id } = request.body;
+                // parâmetro passado via url na chamada da api pelo front-end
+            const { mes_id } = request.params; 
+                // instrução sql para atualização
+            const sql = 'UPDATE mesas SET mes_nome = ?, mes_status = ?, mes_lugares = ?, ped_id = ? WHERE mes_id = ?;';  
+                // definição de array com os parâmetros que receberam os valores do front-end
+            const values = [mes_nome, mes_status, mes_lugares, ped_id, mes_id];   
+                // executa a instrução de atualização no banco de dados    
+            const atualizacao = await db.query(sql, values);
+                // Mensagem de retorno no formato JSON
+            return response.status(200).json({confirma: 'Sucesso', message: 'Dados atualizados'});            
+        } catch (error) { 
+            return response.status(500).json({confirma: 'Erro', message: error});
+        }        
     },
 };
 
