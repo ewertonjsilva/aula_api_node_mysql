@@ -34,9 +34,10 @@ router.get('/enderecoclientes', EnderecoClientesController.listarEnderecoCliente
 
 
 router.get('/mesas', MesasController.listarMesas); 
+router.get('/mesas/:mes_id', MesasController.listarMesa); 
 router.post('/mesas', MesasController.create); // body
 router.patch('/mesas/:mes_id', MesasController.update); // params(link) e body
-// excluir
+router.delete('/mesas/:mes_id', MesasController.delete); // params(link)
 
 
 router.get('/pedidoprodutos', PedidoProdutosController.listarPedidoProdutos); 
@@ -51,7 +52,7 @@ router.get('/pedidos', PedidosController.listarPedidos);
 // excluir
 
 
-router.get('/pedidos', ProdutosController.listarProdutos); 
+router.get('/produtos', ProdutosController.listarProdutos); // query(link)
 // cadastrar
 // editar
 // excluir

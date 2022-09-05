@@ -50,6 +50,35 @@ module.exports = {
         } catch (error) { 
             return response.status(500).json({confirma: 'Erro', message: error});
         }        
-    },
+    }, 
+    async delete(request, response) { 
+        try {
+                // parâmetro passado via url na chamada da api pelo front-end
+            const { mes_id } = request.params;
+            //const usu_id = request.headers.authorization; // Controle de acesso para execução das funções
+    
+                // comando de exclusão
+            const sql = 'DELETE FROM mesas WHERE mes_id = ?'; 
+                // definição de array com os parâmetros que receberam os valores do front-end
+            const values = [mes_id];
+                // executa a instrução de exclusão no banco de dados    
+            await db.query(sql, values);  
+                // Mensagem de retorno no formato JSON
+            return response.status(200).json({confirma: 'Sucesso', message:'Mesa com id ' + mes_id + ' excluída com sucesso'}); 
+        } catch (error) {
+            return response.status(500).json({confirma: 'Erro', message: error});
+        }        
+    }, 
+    async listarMesa(request, response) { 
+        try {
+            const { mes_id } = request.params;  
+            const sql = 'SELECT mes_id, mes_nome, mes_status, mes_lugares, ped_id FROM mesas WHERE mes_id = ?;';  
+            const values = [mes_id];      
+            const mesa = await db.query(sql, values);
+            return response.status(200).json({confirma: 'Sucesso', message: mesa[0]});            
+        } catch (error) { 
+            return response.status(500).json({confirma: 'Erro', message: error});
+        }
+    }
 };
 
