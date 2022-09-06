@@ -11,7 +11,10 @@ const PedidoProdutosController = require('../controllers/pedidoProdutosControlle
 const PedidosController = require('../controllers/pedidosController');
 const ProdutosController = require('../controllers/produtosController');
 const ProdutosTipoController = require('../controllers/produtoTipoController');
-const UsuariosController = require('../controllers/usuariosController');
+const UsuariosController = require('../controllers/usuariosController'); 
+
+// importação Middleware
+const produto = require('../controllers/validacao/produtos');
 
 // definição de rotas
 
@@ -52,7 +55,7 @@ router.get('/pedidos', PedidosController.listarPedidos);
 // excluir
 
 
-router.get('/produtos', ProdutosController.listarProdutos); // query(link)
+router.get('/produtos', produto, ProdutosController.listarProdutos); // query(link)
 // cadastrar
 // editar
 // excluir
