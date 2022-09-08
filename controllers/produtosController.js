@@ -19,7 +19,7 @@ module.exports = {
             //console.log(n_txt[0].cont_txt);
 
             // const sql = ('SELECT pd.prd_id, pd.prd_nome, pt.ptp_id, pt.ptp_nome, pd.prd_valor, pd.prd_unidade, pd.prd_disponivel, pd.prd_img FROM produtos pd INNER JOIN produto_tipos pt ON pd.ptp_id = pt.ptp_id WHERE pd.prd_nome like ? AND pt.ptp_id like ? LIMIT ?, ?; ');
-            const sqlCampos = ('SELECT pd.prd_id, pd.prd_nome, pt.ptp_id, pt.ptp_nome, pd.prd_valor, pd.prd_unidade, pd.prd_disponivel, pd.prd_img FROM produtos pd '); 
+            const sqlCampos = ('SELECT pd.prd_id, pd.prd_nome, pt.ptp_id, pt.ptp_nome, pd.prd_valor, pd.prd_unidade, pd.prd_disponivel = 1 as prd_disponivel, pd.prd_img FROM produtos pd '); 
             const sqlJoin = ('INNER JOIN produto_tipos pt ON pd.ptp_id = pt.ptp_id ');
             const sqlFiltro = ('WHERE pd.prd_nome like ? AND pt.ptp_id like ? LIMIT ?, ?; ');
             const values = [p_nome_produto, ptp_id, parseInt(inicio), parseInt(limit)]; 
