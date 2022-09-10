@@ -18,19 +18,37 @@ module.exports = {
             const n_prod = await db.query(sqlCount, valuesCont); 
             //console.log(n_txt[0].cont_txt);
 
-            // const sql = ('SELECT pd.prd_id, pd.prd_nome, pt.ptp_id, pt.ptp_nome, pd.prd_valor, pd.prd_unidade, pd.prd_disponivel, pd.prd_img FROM produtos pd INNER JOIN produto_tipos pt ON pd.ptp_id = pt.ptp_id WHERE pd.prd_nome like ? AND pt.ptp_id like ? LIMIT ?, ?; ');
-            const sqlCampos = ('SELECT pd.prd_id, pd.prd_nome, pt.ptp_id, pt.ptp_nome, pd.prd_valor, pd.prd_unidade, pd.prd_disponivel = 1 as prd_disponivel, pd.prd_img FROM produtos pd '); 
+            // const sql = ('SELECT pd.prd_id, pd.prd_nome, pt.ptp_id, pt.ptp_nome, pd.prd_valor, pd.prd_unidade, pd.prd_disponivel = 1 as prd_disponivel, pd.prd_img FROM produtos pd INNER JOIN produto_tipos pt ON pd.ptp_id = pt.ptp_id WHERE pd.prd_nome like ? AND pt.ptp_id like ? LIMIT ?, ?; ');
+            const sqlCampos = ('SELECT pd.prd_id, pd.prd_nome, pt.ptp_id, pt.ptp_nome, pd.prd_valor, pd.prd_unidade, pd.prd_disponivel = true as prd_disponivel, pd.prd_img FROM produtos pd '); 
             const sqlJoin = ('INNER JOIN produto_tipos pt ON pd.ptp_id = pt.ptp_id ');
             const sqlFiltro = ('WHERE pd.prd_nome like ? AND pt.ptp_id like ? LIMIT ?, ?; ');
             const values = [p_nome_produto, ptp_id, parseInt(inicio), parseInt(limit)]; 
             const produtos = await db.query(sqlCampos + sqlJoin + sqlFiltro, values);
 
-            response.header('X-Total-Count', n_prod[0][0].cont_prod);
-            //return response.status(200).json(produtos[0]);  
+            response.header('X-Total-Count', n_prod[0][0].cont_prod);  
             return response.status(200).json({confirma: 'Sucesso', nResults: produtos[0].length, message: produtos[0]});            
         } catch (error) { 
             return response.status(500).json({confirma: 'Erro', message: error});
         }
+    },  
+    async create(request, response) {
+        try {
+                // parâmtros passados via corpo da requisição
+            const { nome, valor, unidade, tipo, disponivel, img } = request.body;  
+                // instrução sql para inserção
+            const sql = 'INSERT INTO produtos (prd_nome, prd_valor, prd_unidade, ptp_id, prd_disponivel, prd_img) VALUES (?, ?, ?, ?, ?, ?)'; 
+                // definição de array com os parâmetros que receberam os valores do front-end
+            const values = [nome, valor, unidade, tipo, disponivel, img]; 
+                // executa a instrução de inserção no banco de dados       
+            const confirmacao = await db.query(sql, values);
+                // Exibe o id do registro inserido
+            const prd_id = confirmacao[0].insertId; 
+                // Mensagem de retorno no formato JSON
+            const dados = {id: prd_id, nome, valor: valor.toFixed(2), unidade, tipo, disponivel, img};
+            return response.status(200).json({confirma: 'Sucesso', message: dados});
+        } catch (error) { 
+            return response.status(500).json({confirma: 'Erro', message: error});
+        }   
     }, 
 };
 
