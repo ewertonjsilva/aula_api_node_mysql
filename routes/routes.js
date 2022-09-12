@@ -44,7 +44,7 @@ router.delete('/mesas/:mes_id', MesasController.delete); // params(link)
 
 
 router.get('/pedidoprodutos', PedidoProdutosController.listarPedidoProdutos); 
-// cadastrar
+router.post('/pedidoprodutos', PedidoProdutosController.create); 
 // editar
 // excluir
 
