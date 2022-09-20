@@ -18,8 +18,8 @@ module.exports = {
             const n_prod = await db.query(sqlCount, valuesCont); 
             //console.log(n_txt[0].cont_txt);
 
-            // const sql = ('SELECT pd.prd_id, pd.prd_nome, pt.ptp_id, pt.ptp_nome, pd.prd_valor, pd.prd_unidade, pd.prd_disponivel = 1 as prd_disponivel, pd.prd_img FROM produtos pd INNER JOIN produto_tipos pt ON pd.ptp_id = pt.ptp_id WHERE pd.prd_nome like ? AND pt.ptp_id like ? LIMIT ?, ?; ');
-            const sqlCampos = ('SELECT pd.prd_id, pd.prd_nome, pt.ptp_id, pt.ptp_nome, pd.prd_valor, pd.prd_unidade, pd.prd_disponivel = true as prd_disponivel, pd.prd_img FROM produtos pd '); 
+            // const sql = ('SELECT pd.prd_id, pd.prd_nome, pt.ptp_id, pt.ptp_nome, pd.prd_valor, pd.prd_unidade, pd.prd_disponivel = 1 as prd_disponivel, pd.prd_img, pd.prd_destaque, pd.prd_img_destaque, pd.prd_descricao FROM produtos pd INNER JOIN produto_tipos pt ON pd.ptp_id = pt.ptp_id WHERE pd.prd_nome like ? AND pt.ptp_id like ? LIMIT ?, ?; ');
+            const sqlCampos = ('SELECT pd.prd_id, pd.prd_nome, pt.ptp_id, pt.ptp_nome, pd.prd_valor, pd.prd_unidade, pd.prd_disponivel = 1 as prd_disponivel, pd.prd_img, pd.prd_destaque = 1 as prd_destaque, pd.prd_img_destaque, pd.prd_descricao FROM produtos pd '); 
             const sqlJoin = ('INNER JOIN produto_tipos pt ON pd.ptp_id = pt.ptp_id ');
             const sqlFiltro = ('WHERE pd.prd_nome like ? AND pt.ptp_id like ? LIMIT ?, ?; ');
             const values = [p_nome_produto, ptp_id, parseInt(inicio), parseInt(limit)]; 
@@ -34,11 +34,11 @@ module.exports = {
     async create(request, response) {
         try {
                 // parâmtros passados via corpo da requisição
-            const { nome, valor, unidade, tipo, disponivel, img } = request.body;  
+            const { nome, valor, unidade, tipo, disponivel, img, destaque, img_destaque, descricao } = request.body;  
                 // instrução sql para inserção
-            const sql = 'INSERT INTO produtos (prd_nome, prd_valor, prd_unidade, ptp_id, prd_disponivel, prd_img) VALUES (?, ?, ?, ?, ?, ?)'; 
+            const sql = 'INSERT INTO produtos (prd_nome, prd_valor, prd_unidade, ptp_id, prd_disponivel, prd_img, prd_destaque, prd_img_destaque, prd_descricao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'; 
                 // definição de array com os parâmetros que receberam os valores do front-end
-            const values = [nome, valor, unidade, tipo, disponivel, img]; 
+            const values = [nome, valor, unidade, tipo, disponivel, img, destaque, img_destaque, descricao]; 
                 // executa a instrução de inserção no banco de dados       
             const confirmacao = await db.query(sql, values);
                 // Exibe o id do registro inserido
