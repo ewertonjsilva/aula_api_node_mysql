@@ -16,7 +16,7 @@ module.exports = {
  
             const { itensPedido } = request.body;
             //console.log(itensPedido);
-             let posicoes = []; 
+            let posicoes = []; 
             itensPedido.forEach((pos, i) => {
                 //console.log(pos.ppd_hora, pos.ppd_qtd, pos.ppd_valor, pos.ppd_obs, pos.ppd_status, pos.ped_id, pos.prd_id); 
                 posicoes.push([pos.ppd_hora, pos.ppd_qtd, pos.ppd_valor, pos.ppd_obs, pos.ppd_status, pos.ped_id, pos.prd_id]); 
