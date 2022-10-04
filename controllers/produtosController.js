@@ -34,17 +34,18 @@ module.exports = {
     async create(request, response) {
         try {
                 // parâmtros passados via corpo da requisição
-            const { nome, valor, unidade, tipo, disponivel, img, destaque, img_destaque, descricao } = request.body;  
+            const { nome, valor, unidade, tipo, disponivel, destaque, img_destaque, descricao } = request.body;  
+            const img = request.file.path;
                 // instrução sql para inserção
             const sql = 'INSERT INTO produtos (prd_nome, prd_valor, prd_unidade, ptp_id, prd_disponivel, prd_img, prd_destaque, prd_img_destaque, prd_descricao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'; 
                 // definição de array com os parâmetros que receberam os valores do front-end
-            const values = [nome, valor, unidade, tipo, disponivel, img, destaque, img_destaque, descricao]; 
+            const values = [nome, parseFloat(valor), unidade, parseInt(tipo), parseInt(disponivel), img, parseInt(destaque), img_destaque, descricao]; 
                 // executa a instrução de inserção no banco de dados       
             const confirmacao = await db.query(sql, values);
                 // Exibe o id do registro inserido
             const prd_id = confirmacao[0].insertId; 
                 // Mensagem de retorno no formato JSON
-            const dados = {id: prd_id, nome, valor: valor.toFixed(2), unidade, tipo, disponivel, img};
+            const dados = {id: prd_id, nome, valor: parseFloat(valor).toFixed(2), unidade, tipo, disponivel, img};
             return response.status(200).json({confirma: 'Sucesso', message: dados});
         } catch (error) { 
             return response.status(500).json({confirma: 'Erro', message: error});
