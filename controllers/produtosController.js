@@ -45,7 +45,7 @@ module.exports = {
                 // Exibe o id do registro inserido
             const prd_id = confirmacao[0].insertId; 
                 // Mensagem de retorno no formato JSON
-            const dados = {id: prd_id, nome, valor: parseFloat(valor).toFixed(2), unidade, tipo, disponivel, img};
+            const dados = {id: prd_id, nome, valor: parseFloat(valor).toFixed(2), unidade, tipo, disponivel, img: img};
             return response.status(200).json({confirma: 'Sucesso', message: dados});
         } catch (error) { 
             return response.status(500).json({confirma: 'Erro', message: error});

@@ -2,33 +2,34 @@ const db = require('../database/connection');
 const express = require('express'); 
 const router = express.Router();  
 
-const multer = require("multer"); 
+const upload = require('../middlewares/uploadImage');
+// const multer = require("multer"); 
 
-const storage = multer.diskStorage({
-   destination: function (req, file, cb)  {
-        cb(null, './public/upload/produtos/');
-   }, 
-   filename: function (req, file, cb) {
-        let data = new Date().toISOString().replace(/:/g, '-') + '-';
-        cb(null, data + file.originalname);
-   }
-}); 
+// const storage = multer.diskStorage({
+//    destination: function (req, file, cb)  {
+//         cb(null, './public/upload/produtos/');
+//    }, 
+//    filename: function (req, file, cb) {
+//         let data = new Date().toISOString().replace(/:/g, '-') + '-';
+//         cb(null, data + file.originalname);
+//    }
+// }); 
 
-const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-        cb(null, true);
-    } else {
-        cb(null, false); 
-    }
-} 
+// const fileFilter = (req, file, cb) => {
+//     if (file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+//         cb(null, true);
+//     } else {
+//         cb(null, false); 
+//     }
+// } 
 
-const upload = multer({
-    storage: storage, 
-    limits: {
-        fieldSize: 1024 * 1024 * 5
-    }, 
-    fileFilter: fileFilter
-});
+// const upload = multer({
+//     storage: storage, 
+//     limits: {
+//         fieldSize: 1024 * 1024 * 5
+//     }, 
+//     fileFilter: fileFilter
+// });
 
 // importação dos controlers utilizados nas rotas
 const CidadesController = require('../controllers/cidadesController');
