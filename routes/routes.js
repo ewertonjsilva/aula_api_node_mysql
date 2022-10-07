@@ -43,7 +43,7 @@ const ProdutosTipoController = require('../controllers/produtoTipoController');
 const UsuariosController = require('../controllers/usuariosController'); 
 
 // importação Middleware
-const produto = require('../validacao/produtos');
+const produto = require('../middlewares/validaProdutos');
 
 // definição de rotas
 

@@ -35,7 +35,7 @@ module.exports = {
         try {
                 // parâmtros passados via corpo da requisição
             const { nome, valor, unidade, tipo, disponivel, destaque, img_destaque, descricao } = request.body;  
-            const img = request.file.path;
+            const img = request.file.filename;
                 // instrução sql para inserção
             const sql = 'INSERT INTO produtos (prd_nome, prd_valor, prd_unidade, ptp_id, prd_disponivel, prd_img, prd_destaque, prd_img_destaque, prd_descricao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'; 
                 // definição de array com os parâmetros que receberam os valores do front-end
@@ -45,7 +45,7 @@ module.exports = {
                 // Exibe o id do registro inserido
             const prd_id = confirmacao[0].insertId; 
                 // Mensagem de retorno no formato JSON
-            const dados = {id: prd_id, nome, valor: parseFloat(valor).toFixed(2), unidade, tipo, disponivel, img: img};
+            const dados = {id: prd_id, nome, valor: parseFloat(valor).toFixed(2), unidade, tipo, disponivel, img: 'http://localhost:3333/public/upload/produtos/' + img};
             return response.status(200).json({confirma: 'Sucesso', message: dados});
         } catch (error) { 
             return response.status(500).json({confirma: 'Erro', message: error});
