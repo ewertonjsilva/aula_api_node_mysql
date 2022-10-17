@@ -14,7 +14,13 @@ function produto (request, response, next) {
         if (ptp_id !== '%%') {
             return response.status(500).json({confirma: 'Erro', message: 'O valor informado para o tipo de produto deve ser numérico'});
         }        
-    }    
+    }  
+    
+    /*
+        fazer validação de imagem e ver se da para combinar esse após o upload no routes
+        next só aqui? - acho que sim -- testar
+        https://www.youtube.com/watch?v=J469c3a6lXU em 18:14
+    */
 
     next();
 }

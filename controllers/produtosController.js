@@ -1,5 +1,23 @@
 const { json } = require("express");
 const db = require("../database/connection"); 
+const produto = require("../middlewares/validaProdutos");
+
+function geraUrl (e) {
+    const produto = {
+        prd_id: e.prd_id, 
+        prd_nome: e.prd_nome,
+		ptp_id: e.ptp_id,
+		ptp_nome: e.ptp_nome,
+		prd_valor: e.prd_valor,
+		prd_unidade: e.prd_unidade,
+		prd_disponivel: e.prd_disponivel,
+		prd_img: 'http://localhost:3333/public/upload/produtos/' + e.prd_img,
+		prd_destaque: e.prd_destaque,
+		prd_img_destaque: e.prd_img_destaque,
+		prd_descricao: e.prd_descricao
+    }
+    return produto;
+}
 
 module.exports = {
     async listarProdutos(request, response) { 
@@ -23,10 +41,13 @@ module.exports = {
             const sqlJoin = ('INNER JOIN produto_tipos pt ON pd.ptp_id = pt.ptp_id ');
             const sqlFiltro = ('WHERE pd.prd_nome like ? AND pt.ptp_id like ? LIMIT ?, ?; ');
             const values = [p_nome_produto, ptp_id, parseInt(inicio), parseInt(limit)]; 
-            const produtos = await db.query(sqlCampos + sqlJoin + sqlFiltro, values);
+            const produtos = await db.query(sqlCampos + sqlJoin + sqlFiltro, values); 
+
+            // chamada para montar url
+            const resultado = produtos[0].map(geraUrl);
 
             response.header('X-Total-Count', n_prod[0][0].cont_prod);  
-            return response.status(200).json({confirma: 'Sucesso', nResults: produtos[0].length, message: produtos[0]});            
+            return response.status(200).json({confirma: 'Sucesso', nResults: produtos[0].length, message: resultado});            
         } catch (error) { 
             return response.status(500).json({confirma: 'Erro', message: error});
         }
