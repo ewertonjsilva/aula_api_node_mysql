@@ -23,3 +23,9 @@ app.listen(porta, () => {
 app.get('/', (request, response) => {
     response.send('Hello World');
 });
+
+//pega IP
+// const os = require('os');
+// const networkInfo = os.networkInterfaces();
+// console.log(networkInfo) // objeto
+// console.log(networkInfo.lo[0].address) // ip

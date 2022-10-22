@@ -5,15 +5,15 @@ const produto = require("../middlewares/validaProdutos");
 function geraUrl (e) {
     const produto = {
         prd_id: e.prd_id, 
-        prd_nome: e.prd_nome,
-		ptp_id: e.ptp_id,
-		ptp_nome: e.ptp_nome,
-		prd_valor: e.prd_valor,
-		prd_unidade: e.prd_unidade,
-		prd_disponivel: e.prd_disponivel,
-		prd_img: 'http://localhost:3333/public/upload/produtos/' + e.prd_img,
-		prd_destaque: e.prd_destaque,
-		prd_img_destaque: e.prd_img_destaque,
+        prd_nome: e.prd_nome, 
+		ptp_id: e.ptp_id, 
+		ptp_nome: e.ptp_nome, 
+		prd_valor: e.prd_valor, 
+		prd_unidade: e.prd_unidade, 
+		prd_disponivel: e.prd_disponivel, 
+		prd_img: 'http://10.67.23.150:3333/public/upload/produtos/' + e.prd_img, 
+		prd_destaque: e.prd_destaque, 
+		prd_img_destaque: e.prd_img_destaque, 
 		prd_descricao: e.prd_descricao
     }
     return produto;
