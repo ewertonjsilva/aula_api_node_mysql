@@ -48,6 +48,7 @@ const produto = require('../middlewares/validaProdutos');
 // definição de rotas
 
 router.get('/cidades', CidadesController.listarCidades); 
+router.get('/estados', CidadesController.listarEstados); 
 // cadastrar
 // editar
 // excluir

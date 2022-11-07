@@ -12,4 +12,13 @@ module.exports = {
             return response.status(500).json({confirma: 'Erro', message: error});
         }
     },  
+    async listarEstados(request, response) { 
+        try {
+            const sql = 'SELECT DISTINCT cid_uf FROM cidades ORDER BY cid_uf ASC; ';  
+            const estados = await db.query(sql); 
+            return response.status(200).json({confirma: 'Sucesso', nResults: estados[0].length, message: estados[0]});    
+        } catch (error) { 
+            return response.status(500).json({confirma: 'Erro', message: error});
+        }
+    },
 };
