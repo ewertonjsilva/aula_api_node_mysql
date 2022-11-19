@@ -47,7 +47,7 @@ const produto = require('../middlewares/validaProdutos');
 
 // definição de rotas
 
-router.get('/cidades', CidadesController.listarCidades); 
+router.post('/cidades', CidadesController.listarCidades); 
 router.get('/estados', CidadesController.listarEstados); 
 // cadastrar
 // editar
@@ -55,7 +55,7 @@ router.get('/estados', CidadesController.listarEstados);
 
 
 router.get('/clientes', ClientesController.listarClientes); 
-// cadastrar
+router.post('/clientes', ClientesController.cadClientes); 
 // editar
 // excluir
 

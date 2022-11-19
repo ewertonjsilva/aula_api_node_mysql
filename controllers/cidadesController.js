@@ -5,8 +5,11 @@ const db = require("../database/connection");
 module.exports = {
     async listarCidades(request, response) { 
         try {
-            const sql = 'SELECT cid_id, cid_nome, cid_uf FROM cidades;';  
-            const cidades = await db.query(sql); 
+            const { cidade = '%%', estado = '%%' } = request.body; 
+            // console.log(cidade);
+            const sql = 'SELECT cid_id, cid_nome, cid_uf FROM cidades WHERE cid_nome like ? AND cid_uf = ? ORDER BY cid_nome ASC; ';  
+            const values = [cidade, estado];
+            const cidades = await db.query(sql, values); 
             return response.status(200).json({confirma: 'Sucesso', nResults: cidades[0].length, message: cidades[0]});    
         } catch (error) { 
             return response.status(500).json({confirma: 'Erro', message: error});
