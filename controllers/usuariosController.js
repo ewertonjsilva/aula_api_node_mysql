@@ -37,7 +37,7 @@ module.exports = {
         try {
             const { login, senha } = request.body; 
  
-            const sql = 'SELECT usu_nome, usu_email, usu_senha, usu_tipo FROM usuarios WHERE usu_email = ?;';  
+            const sql = 'SELECT usu_id, usu_nome, usu_email, usu_senha, usu_tipo FROM usuarios WHERE usu_email = ?;';  
             const values = [login];      
             const usuario = await db.query(sql, values);
   
@@ -47,7 +47,7 @@ module.exports = {
 
             let logar = bcrypt.compareSync(senha, usuario[0][0].usu_senha);
             if (logar == true) {
-                return response.status(200).json({confirma: true, nome: usuario[0][0].usu_nome, tipo: usuario[0][0].usu_tipo});   
+                return response.status(200).json({confirma: true, id: usuario[0][0].usu_id, nome: usuario[0][0].usu_nome, tipo: usuario[0][0].usu_tipo});   
             } else {
                 return response.status(200).json({confirma: false, message: 'A senha não corresponde!'});   
             }            
