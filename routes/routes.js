@@ -86,6 +86,7 @@ router.get('/pedidos', PedidosController.listarPedidos);
 
 
 router.get('/produtos', produto, ProdutosController.listarProdutos); // query(link)
+router.get('/produtoshome', ProdutosController.listarHome); 
 router.post('/produtos', upload.single('img'), ProdutosController.create);
 // editar
 // excluir

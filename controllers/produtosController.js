@@ -72,5 +72,19 @@ module.exports = {
             return response.status(500).json({confirma: 'Erro', message: error});
         }   
     }, 
+    async listarHome(request, response) { 
+        try {
+           
+            const sql = ('SELECT pd.prd_id, pd.prd_nome, pt.ptp_id, pt.ptp_nome, pd.prd_valor, pd.prd_unidade, pd.prd_disponivel = 1 as prd_disponivel, pd.prd_img, pd.prd_destaque = 1 as prd_destaque, pd.prd_img_destaque, pd.prd_descricao FROM produtos pd INNER JOIN produto_tipos pt ON pd.ptp_id = pt.ptp_id ORDER BY RAND() LIMIT 6;'); 
+            const produtos = await db.query(sql); 
+
+            // chamada para montar url
+            const resultado = produtos[0].map(geraUrl);
+  
+            return response.status(200).json({confirma: 'Sucesso', nResults: produtos[0].length, message: resultado});            
+        } catch (error) { 
+            return response.status(500).json({confirma: 'Erro', message: error});
+        }
+    },
 };
 
