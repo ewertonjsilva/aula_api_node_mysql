@@ -5,11 +5,12 @@ const produto = require("../middlewares/validaProdutos");
 
 function geraUrl (e) { 
 
+    // garantir que valores em branco carreguem algo
     let img = e.prd_img ? e.prd_img : 'sem.png';
-    // const caminho = fs.statSync('./public/upload/produtos/' + img); 
-    // if (!caminho.isFile()) {
-    //     console.log('img não encontrada');
-    // }    
+    // verifica se imagem existe
+    if (fs.existsSync('./public/upload/produtos/' + img)) {
+        img = 'sem.jpg';
+    }    
 
     const produto = {
         prd_id: e.prd_id, 
@@ -19,7 +20,7 @@ function geraUrl (e) {
 		prd_valor: e.prd_valor, 
 		prd_unidade: e.prd_unidade, 
 		prd_disponivel: e.prd_disponivel, 
-		prd_img: 'http://10.67.22.145:3333/public/upload/produtos/' + img, 
+		prd_img: 'http://10.67.23.125:3333/public/upload/produtos/' + img, 
 		prd_destaque: e.prd_destaque, 
 		prd_img_destaque: e.prd_img_destaque, 
 		prd_descricao: e.prd_descricao
