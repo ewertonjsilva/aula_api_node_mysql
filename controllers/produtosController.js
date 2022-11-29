@@ -8,7 +8,7 @@ function geraUrl (e) {
     // garantir que valores em branco carreguem algo
     let img = e.prd_img ? e.prd_img : 'sem.png';
     // verifica se imagem existe
-    if (fs.existsSync('./public/upload/produtos/' + img)) {
+    if (!fs.existsSync('./public/upload/produtos/' + img)) {
         img = 'sem.jpg';
     }    
 
