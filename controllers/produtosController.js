@@ -1,8 +1,16 @@
-const { json } = require("express");
+const { json } = require("express"); 
+var fs = require('fs');
 const db = require("../database/connection"); 
 const produto = require("../middlewares/validaProdutos");
 
-function geraUrl (e) {
+function geraUrl (e) { 
+
+    let img = e.prd_img ? e.prd_img : 'sem.png';
+    // const caminho = fs.statSync('./public/upload/produtos/' + img); 
+    // if (!caminho.isFile()) {
+    //     console.log('img não encontrada');
+    // }    
+
     const produto = {
         prd_id: e.prd_id, 
         prd_nome: e.prd_nome, 
@@ -11,7 +19,7 @@ function geraUrl (e) {
 		prd_valor: e.prd_valor, 
 		prd_unidade: e.prd_unidade, 
 		prd_disponivel: e.prd_disponivel, 
-		prd_img: 'http://10.67.23.150:3333/public/upload/produtos/' + e.prd_img, 
+		prd_img: 'http://10.67.22.145:3333/public/upload/produtos/' + img, 
 		prd_destaque: e.prd_destaque, 
 		prd_img_destaque: e.prd_img_destaque, 
 		prd_descricao: e.prd_descricao
