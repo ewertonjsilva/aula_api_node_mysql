@@ -1,0 +1,23 @@
+CREATE DATABASE fatec; 
+
+SHOW DATABASES; 
+
+USE fatec; 
+
+SELECT DATABASE(); 
+
+-- ALTER SCHEMA fatec RENAME TO fatece_1sem_23; 
+
+DROP DATABASE fatec; 
+
+CREATE DATABASE fatec_1sem_23; 
+
+SHOW DATABASES; 
+
+USE fatec_1sem_23;
+
+SELECT DATABASE(); 
+
+
+
+
