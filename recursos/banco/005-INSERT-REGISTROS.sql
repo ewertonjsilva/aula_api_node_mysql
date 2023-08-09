@@ -1,23 +1,4 @@
 
-SELECT * FROM pedido_produtos;
-SELECT * FROM produtos;
-SELECT * FROM produto_tipos; 
-SELECT * FROM mesas; 
-SELECT * FROM pedidos; 
-SELECT * FROM endereco_clientes; 
-SELECT * FROM cidades;
-SELECT * FROM clientes; 
-SELECT * FROM usuarios;
-
-drop table pedido_produtos;
-drop table produtos;
-drop table produto_tipos; 
-drop table mesas; 
-drop table pedidos; 
-drop table endereco_clientes; 
-drop table cidades;
-drop table clientes; 
-drop table usuarios;
 
 -- CIDADES -- ARQUIVO EXTERNO
 
